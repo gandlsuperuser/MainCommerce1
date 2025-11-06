@@ -1,16 +1,34 @@
+import { HeroCarousel } from "@/components/home/hero-carousel"
+import { FeaturedCategories } from "@/components/home/featured-categories"
+import { FeaturedProducts } from "@/components/home/featured-products"
+import { LatestProducts } from "@/components/home/latest-products"
+import { SpecialOffers } from "@/components/home/special-offers"
+import { Testimonials } from "@/components/home/testimonials"
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
-        <h1 className="text-4xl font-bold text-center mb-8">
-          Welcome to Main Commerce
-        </h1>
-        <p className="text-center text-gray-600">
-          Get started by editing{" "}
-          <code className="font-mono font-bold">src/app/(home)/page.tsx</code>
-        </p>
-      </div>
-    </main>
+    <div className="flex flex-col">
+      {/* Hero Banner Carousel */}
+      <section className="mb-8 pt-8">
+        <div className="container px-4">
+          <HeroCarousel />
+        </div>
+      </section>
+
+      {/* Featured Categories */}
+      <FeaturedCategories />
+
+      {/* Featured Products */}
+      <FeaturedProducts />
+
+      {/* Latest Products */}
+      <LatestProducts />
+
+      {/* Special Offers */}
+      <SpecialOffers />
+
+      {/* Customer Testimonials */}
+      <Testimonials />
+    </div>
   )
 }
-

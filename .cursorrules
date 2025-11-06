@@ -16,7 +16,8 @@
 ## Lessons
 
 1. Use `npx shadcn@latest add [component]` instead of `npx shadcn-ui@latest add [component]` when installing Shadcn UI components.
-2. In Next.js 14+, page props params must be typed as a Promise. Example:
+2. Always use Shadcn components from `npx shadcn@latest add [component]` instead of creating custom components from scratch (e.g., use `npx shadcn@latest add carousel` instead of building a custom carousel).
+3. In Next.js 14+, page props params must be typed as a Promise. Example:
    ```typescript
    type tParams = Promise<{ id: string }>
    interface PageProps {
@@ -101,12 +102,12 @@
     - [X] Quick links (About, Contact, Help)
     - [X] Social media icons
     - [X] Newsletter signup
-- [ ] Homepage:
-  - [ ] Hero banner carousel with featured products
-  - [ ] Featured categories section
-  - [ ] Latest/trending products grid
-  - [ ] Special offers section
-  - [ ] Customer testimonials/reviews section
+- [X] Homepage:
+  - [X] Hero banner carousel with featured products
+  - [X] Featured categories section
+  - [X] Latest/trending products grid
+  - [X] Special offers section
+  - [X] Customer testimonials/reviews section
 - [ ] Products Catalog:
   - [ ] Category sidebar with nested categories
   - [ ] Filters sidebar (price range, rating, brand)
