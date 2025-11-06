@@ -7,9 +7,10 @@ export default function Home() {
         </h1>
         <p className="text-center text-gray-600">
           Get started by editing{" "}
-          <code className="font-mono font-bold">src/app/page.tsx</code>
+          <code className="font-mono font-bold">src/app/(home)/page.tsx</code>
         </p>
       </div>
     </main>
-  );
+  )
 }
+

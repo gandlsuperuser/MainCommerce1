@@ -75,32 +75,32 @@
 - [X] Run Prisma migrations (`npx prisma migrate dev`) - migration created and applied successfully
 - [X] Generate Prisma Client (`npx prisma generate`)
 - [X] Set up Prisma Client singleton for Next.js
-- [ ] Implement NextAuth.js authentication:
-  - [ ] Configure NextAuth with Prisma adapter
-  - [ ] Email/Password credentials provider
-  - [ ] OAuth providers (Google, GitHub)
-  - [ ] Email verification flow
-  - [ ] Password reset flow
-  - [ ] JWT handling and session management
-  - [ ] Protected route middleware
-  - [ ] Role-based access control (admin vs customer)
+- [X] Implement NextAuth.js authentication:
+  - [X] Configure NextAuth with Prisma adapter
+  - [X] Email/Password credentials provider
+  - [X] OAuth providers (Google, GitHub) - configured (need OAuth credentials)
+  - [X] Email verification flow
+  - [X] Password reset flow
+  - [X] JWT handling and session management
+  - [X] Protected route middleware
+  - [X] Role-based access control (admin vs customer)
 
 ### 3. Core Features - Customer Side [ ]
 
-- [ ] Home Layout:
-  - [ ] Create `(home)` folder in `app` directory
-  - [ ] Header component with:
-    - [ ] Logo and branding
-    - [ ] Search bar with autocomplete
-    - [ ] Navigation menu (All Categories dropdown)
-    - [ ] User account menu (sign in/register/profile)
-    - [ ] Shopping cart icon with item count
-    - [ ] Wishlist icon
-  - [ ] Footer component with:
-    - [ ] Company information
-    - [ ] Quick links (About, Contact, Help)
-    - [ ] Social media icons
-    - [ ] Newsletter signup
+- [X] Home Layout:
+  - [X] Create `(home)` folder in `app` directory
+  - [X] Header component with:
+    - [X] Logo and branding
+    - [X] Search bar with autocomplete
+    - [X] Navigation menu (All Categories dropdown)
+    - [X] User account menu (sign in/register/profile)
+    - [X] Shopping cart icon with item count
+    - [X] Wishlist icon
+  - [X] Footer component with:
+    - [X] Company information
+    - [X] Quick links (About, Contact, Help)
+    - [X] Social media icons
+    - [X] Newsletter signup
 - [ ] Homepage:
   - [ ] Hero banner carousel with featured products
   - [ ] Featured categories section
