@@ -1,10 +1,15 @@
 import { Resend } from "resend"
 
-const resend = process.env.RESEND_API_KEY
-  ? new Resend(process.env.RESEND_API_KEY)
-  : null
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    return null
+  }
+  return new Resend(apiKey)
+}
 
 export async function sendVerificationEmail(email: string, token: string) {
+  const resend = getResendClient()
   if (!resend) {
     console.warn("RESEND_API_KEY not configured. Email not sent.")
     return { success: false, error: "Email service not configured" }
@@ -40,6 +45,7 @@ export async function sendVerificationEmail(email: string, token: string) {
 }
 
 export async function sendPasswordResetEmail(email: string, token: string) {
+  const resend = getResendClient()
   if (!resend) {
     console.warn("RESEND_API_KEY not configured. Email not sent.")
     return { success: false, error: "Email service not configured" }
