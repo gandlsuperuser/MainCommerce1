@@ -1,0 +1,402 @@
+
+# Cursor Rules
+
+## Instructions
+
+- Record fixes for mistakes or corrections to avoid repetition in the `Lessons` section.
+- Organize thoughts and plan steps before starting a task in the `Scratchpad` section.
+- Clear old tasks if necessary.
+- Use todo markers for progress tracking:
+  - `[X]` Completed tasks
+  - `[ ]` Pending tasks
+- Update Scratchpad after completing subtasks.
+- Reflect and plan after milestones for better task management.
+- Always refer to Scratchpad before planning the next step.
+
+## Lessons
+
+1. Use `npx shadcn@latest add [component]` instead of `npx shadcn-ui@latest add [component]` when installing Shadcn UI components.
+2. In Next.js 14+, page props params must be typed as a Promise. Example:
+   ```typescript
+   type tParams = Promise<{ id: string }>
+   interface PageProps {
+     params: tParams
+   }
+   ```
+   Then await the params in the component:
+   ```typescript
+   export default async function Page(props: PageProps) {
+     const { id } = await props.params
+   }
+   ```
+3. Use `const session = await auth()` instead of `const session = await getServerSession(authOptions)` for Next.js authentication. The new `auth()` function is the recommended way to get the session in Next.js Auth v5.
+4. When importing `useRouter` from 'next/navigation', the component must be marked as a client component using the `'use client'` directive at the top of the file, as this hook only works on the client side.
+
+## Scratchpad
+
+### 1. Project Setup and Configuration [X]
+
+- [X] Initialize Next.js 15 project with TypeScript
+- [X] Set up project structure and folders
+- [X] Configure ESLint and Prettier
+- [X] Install and configure dependencies:
+  - [X] Shadcn UI components (initialized with `npx shadcn@latest init` - New York style, slate base color)
+  - [X] Lucide icons (`npm install lucide-react`) - installed v0.344.0
+  - [X] Zod for validation (`npm install zod`) - installed v3.25.76
+  - [X] Zustand for state management (`npm install zustand`) - installed v4.5.7
+  - [X] Recharts for analytics (`npm install recharts`) - installed v2.15.4
+  - [X] Resend for emails (`npm install resend`) - installed v3.5.0
+  - [X] Uploadthing for file uploads (`npm install uploadthing @uploadthing/react`) - installed v7.7.4 / v7.3.3
+  - [X] Prisma ORM (`npm install prisma @prisma/client`) - installed v5.22.0
+  - [ ] PostgreSQL database (set up connection string)
+  - [X] NextAuth.js beta (`npm install next-auth@beta`) - installed v5.0.0-beta.30
+  - [X] Stripe for payments (`npm install stripe @stripe/stripe-js`) - installed v14.25.0 / v2.4.0
+- [X] Configure environment variables (env.template created)
+- [X] Set up path aliases in tsconfig.json
+- [X] Configure Tailwind CSS with Shadcn theme
+
+### 2. Database and Authentication [ ]
+
+- [ ] Set up PostgreSQL database (local or cloud provider)
+- [ ] Initialize Prisma (`npx prisma init`)
+- [ ] Configure Prisma schema:
+  - [ ] User model (id, name, email, password, role, emailVerified, image, createdAt, updatedAt)
+  - [ ] Account model (for OAuth providers)
+  - [ ] Session model (for NextAuth sessions)
+  - [ ] VerificationToken model (for email verification)
+  - [ ] Product model (id, name, description, price, images, categoryId, stock, featured, createdAt, updatedAt)
+  - [ ] Category model (id, name, slug, description, image, parentId, createdAt, updatedAt)
+  - [ ] Order model (id, userId, total, status, shippingAddress, createdAt, updatedAt)
+  - [ ] OrderItem model (id, orderId, productId, quantity, price)
+  - [ ] Review model (id, userId, productId, rating, comment, createdAt, updatedAt)
+  - [ ] Cart model (id, userId, productId, quantity, createdAt, updatedAt)
+  - [ ] Wishlist model (id, userId, productId, createdAt)
+  - [ ] Address model (id, userId, street, city, state, zipCode, country, isDefault)
+- [ ] Run Prisma migrations (`npx prisma migrate dev`)
+- [ ] Generate Prisma Client (`npx prisma generate`)
+- [ ] Set up Prisma Client singleton for Next.js
+- [ ] Implement NextAuth.js authentication:
+  - [ ] Configure NextAuth with Prisma adapter
+  - [ ] Email/Password credentials provider
+  - [ ] OAuth providers (Google, GitHub)
+  - [ ] Email verification flow
+  - [ ] Password reset flow
+  - [ ] JWT handling and session management
+  - [ ] Protected route middleware
+  - [ ] Role-based access control (admin vs customer)
+
+### 3. Core Features - Customer Side [ ]
+
+- [ ] Home Layout:
+  - [ ] Create `(home)` folder in `app` directory
+  - [ ] Header component with:
+    - [ ] Logo and branding
+    - [ ] Search bar with autocomplete
+    - [ ] Navigation menu (All Categories dropdown)
+    - [ ] User account menu (sign in/register/profile)
+    - [ ] Shopping cart icon with item count
+    - [ ] Wishlist icon
+  - [ ] Footer component with:
+    - [ ] Company information
+    - [ ] Quick links (About, Contact, Help)
+    - [ ] Social media icons
+    - [ ] Newsletter signup
+- [ ] Homepage:
+  - [ ] Hero banner carousel with featured products
+  - [ ] Featured categories section
+  - [ ] Latest/trending products grid
+  - [ ] Special offers section
+  - [ ] Customer testimonials/reviews section
+- [ ] Products Catalog:
+  - [ ] Category sidebar with nested categories
+  - [ ] Filters sidebar (price range, rating, brand)
+  - [ ] Search results page with sorting options
+  - [ ] Product grid with card components
+  - [ ] Pagination component
+  - [ ] Empty state handling
+- [ ] Product Detail Page:
+  - [ ] Image gallery with thumbnails and zoom
+  - [ ] Product information section:
+    - [ ] Title, price, discount badges
+    - [ ] Star ratings and review count
+    - [ ] Description with expandable sections
+    - [ ] Stock status indicator
+    - [ ] Quantity selector
+    - [ ] Add to cart button (with Zustand)
+    - [ ] Buy now button
+    - [ ] Add to wishlist button
+  - [ ] Reviews and ratings section:
+    - [ ] Overall rating summary
+    - [ ] Review list with pagination
+    - [ ] Review form for authenticated users
+    - [ ] Star rating component
+    - [ ] Review filtering (by rating)
+  - [ ] Related products section:
+    - [ ] Products from same category
+    - [ ] Product card carousel
+- [ ] Shopping Cart:
+  - [ ] Cart page with item list
+  - [ ] Add/remove items functionality
+  - [ ] Update quantities with validation
+  - [ ] Cart persistence (localStorage/Zustand)
+  - [ ] Price calculations (subtotal, tax, shipping, total)
+  - [ ] Proceed to checkout button
+  - [ ] Continue shopping link
+  - [ ] Empty cart state
+- [ ] Checkout Process:
+  - [ ] Multi-step checkout form:
+    - [ ] Step 1: Shipping address (with saved addresses)
+    - [ ] Step 2: Payment method selection
+    - [ ] Step 3: Order review
+  - [ ] Stripe payment integration:
+    - [ ] Create Stripe checkout session
+    - [ ] Handle payment success/failure
+    - [ ] Webhook handling for order updates
+  - [ ] Order confirmation page
+  - [ ] Order confirmation email (Resend)
+- [ ] User Dashboard:
+  - [ ] Dashboard layout with sidebar navigation
+  - [ ] Order history page:
+    - [ ] List of all orders
+    - [ ] Order status tracking
+    - [ ] Order details view
+    - [ ] Reorder functionality
+  - [ ] Profile management:
+    - [ ] Edit personal information
+    - [ ] Change password
+    - [ ] Email verification status
+  - [ ] Saved addresses:
+    - [ ] Add/edit/delete addresses
+    - [ ] Set default address
+  - [ ] Wishlist page:
+    - [ ] View saved products
+    - [ ] Remove from wishlist
+    - [ ] Add all to cart
+
+### 4. Admin Dashboard [ ]
+
+- [ ] Admin authentication and authorization:
+  - [ ] Admin role check middleware
+  - [ ] Admin-only routes protection
+  - [ ] Admin login page (if separate from customer)
+- [ ] Dashboard Overview:
+  - [ ] Layout and Structure:
+    - [ ] Create admin dashboard layout with sidebar navigation
+    - [ ] Implement responsive grid for dashboard widgets
+    - [ ] Add loading states and error boundaries
+  - [ ] Key Metrics Cards:
+    - [ ] Total revenue widget with real data (today, week, month, year)
+    - [ ] Total orders widget with real data
+    - [ ] Total customers widget with real data
+    - [ ] Average order value widget with real data
+    - [ ] Conversion rate widget
+    - [ ] Active products widget
+  - [ ] Sales Analytics:
+    - [ ] Revenue Chart (Recharts):
+      - [ ] Line chart implementation
+      - [ ] Daily/weekly/monthly/yearly filters
+      - [ ] Revenue trends over time
+      - [ ] Tooltip with detailed information
+      - [ ] Comparison with previous period
+    - [ ] Order Statistics:
+      - [ ] Bar chart for order volume
+      - [ ] Order status distribution (pie chart)
+      - [ ] Peak ordering times (hourly breakdown)
+      - [ ] Order value distribution
+  - [ ] Recent Orders Table:
+    - [ ] Data table with columns:
+      - [ ] Order ID (clickable to details)
+      - [ ] Customer name (link to profile)
+      - [ ] Order total
+      - [ ] Status (with color indicators)
+      - [ ] Date (formatted)
+      - [ ] Payment status
+    - [ ] Sorting by columns
+    - [ ] Filtering by status, date range
+    - [ ] Quick actions (view, process, update status)
+    - [ ] Pagination
+  - [ ] Low Stock Alerts:
+    - [ ] Products with stock below threshold
+    - [ ] Quick restock actions
+    - [ ] Stock level indicators (color-coded)
+    - [ ] Bulk restock functionality
+  - [ ] Top Products:
+    - [ ] Best-selling products list
+    - [ ] Revenue by product
+    - [ ] Stock status indicators
+    - [ ] Quick edit/product link
+  - [ ] Customer Insights:
+    - [ ] New vs returning customers chart
+    - [ ] Customer acquisition chart over time
+    - [ ] Top customers by revenue table
+    - [ ] Customer lifetime value metrics
+  - [ ] Real-time Updates (optional):
+    - [ ] WebSocket connection setup
+    - [ ] Live order notifications
+    - [ ] Stock level updates
+    - [ ] New customer alerts
+  - [ ] Export and Reports:
+    - [ ] CSV export functionality
+    - [ ] PDF report generation
+    - [ ] Custom date range selection
+    - [ ] Scheduled report generation
+- [ ] Product Management:
+  - [ ] Products list page:
+    - [ ] Data table with all products
+    - [ ] Search and filter functionality
+    - [ ] Bulk actions (delete, update status, change category)
+    - [ ] Quick edit modal
+  - [ ] Create/Edit Product:
+    - [ ] Product form with Zod validation
+    - [ ] Basic information (name, description, price, SKU)
+    - [ ] Category selection (with nested categories)
+    - [ ] Image upload (Uploadthing):
+      - [ ] Multiple image upload
+      - [ ] Image reordering
+      - [ ] Image deletion
+    - [ ] Stock management
+    - [ ] Featured product toggle
+    - [ ] SEO fields (meta title, description, slug)
+  - [ ] Product variants (optional):
+    - [ ] Size, color, material options
+    - [ ] Variant-specific pricing and stock
+- [ ] Category Management:
+  - [ ] Categories list with tree view
+  - [ ] Create/edit category
+  - [ ] Category image upload
+  - [ ] Reorder categories (drag and drop)
+  - [ ] Delete category (with product reassignment)
+- [ ] Order Management:
+  - [ ] Orders list page:
+    - [ ] All orders with filters
+    - [ ] Order status management
+    - [ ] Order details view
+  - [ ] Order Processing:
+    - [ ] Update order status workflow
+    - [ ] Shipping label generation
+    - [ ] Tracking number management
+    - [ ] Order fulfillment checklist
+  - [ ] Refund Handling:
+    - [ ] Initiate refund process
+    - [ ] Stripe refund integration
+    - [ ] Refund status tracking
+    - [ ] Refund history
+- [ ] User Management:
+  - [ ] Customer list:
+    - [ ] Search and filter customers
+    - [ ] Customer details view
+    - [ ] Customer order history
+    - [ ] Customer activity log
+  - [ ] Admin privileges:
+    - [ ] Admin user list
+    - [ ] Create/edit admin accounts
+    - [ ] Role management (super admin, admin, moderator)
+    - [ ] Permission system
+  - [ ] User actions:
+    - [ ] Suspend/activate accounts
+    - [ ] Reset user password
+    - [ ] View user activity
+    - [ ] Delete user (with data handling)
+
+### 5. Advanced Features [ ]
+
+- [ ] Real-time Notifications:
+  - [ ] In-app notification system
+  - [ ] Email notifications (Resend)
+  - [ ] Push notifications (optional)
+- [ ] Email System (Resend):
+  - [ ] Order confirmation emails
+  - [ ] Shipping update emails
+  - [ ] Password reset emails
+  - [ ] Welcome emails
+  - [ ] Abandoned cart emails
+  - [ ] Newsletter emails
+  - [ ] Email templates with React Email
+- [ ] Search Optimization:
+  - [ ] Full-text search implementation
+  - [ ] Search autocomplete suggestions
+  - [ ] Search filters (price, rating, category)
+  - [ ] Search analytics
+- [ ] Performance Optimization:
+  - [ ] Image optimization (Next.js Image component)
+  - [ ] Caching strategies:
+    - [ ] Redis for session caching
+    - [ ] API route caching
+    - [ ] Static page generation
+    - [ ] ISR (Incremental Static Regeneration)
+  - [ ] API optimization:
+    - [ ] Database query optimization
+    - [ ] Pagination for large datasets
+    - [ ] Lazy loading for images
+  - [ ] Code splitting and dynamic imports
+- [ ] Analytics and Reporting:
+  - [ ] Google Analytics integration
+  - [ ] Custom analytics events
+  - [ ] Sales reports
+  - [ ] Customer behavior analytics
+  - [ ] Product performance metrics
+
+### 6. Testing and Deployment [ ]
+
+- [ ] Unit Testing:
+  - [ ] Set up Jest and React Testing Library
+  - [ ] Test utility functions
+  - [ ] Test React components
+  - [ ] Test API routes
+- [ ] Integration Testing:
+  - [ ] Test database operations
+  - [ ] Test authentication flows
+  - [ ] Test payment processing
+  - [ ] Test email sending
+- [ ] E2E Testing:
+  - [ ] Set up Playwright or Cypress
+  - [ ] Test user flows (browse, add to cart, checkout)
+  - [ ] Test admin flows (create product, manage orders)
+- [ ] Security Audit:
+  - [ ] SQL injection prevention
+  - [ ] XSS protection
+  - [ ] CSRF protection
+  - [ ] Rate limiting
+  - [ ] Input validation
+  - [ ] Secure environment variables
+- [ ] Production Deployment:
+  - [ ] Environment setup (Vercel/Netlify/AWS):
+    - [ ] Production database (PostgreSQL)
+    - [ ] Environment variables configuration
+    - [ ] Domain setup
+    - [ ] SSL certificate
+  - [ ] CI/CD Pipeline:
+    - [ ] GitHub Actions workflow
+    - [ ] Automated testing
+    - [ ] Automated deployments
+    - [ ] Database migration automation
+  - [ ] Monitoring:
+    - [ ] Error tracking (Sentry)
+    - [ ] Performance monitoring
+    - [ ] Uptime monitoring
+    - [ ] Log aggregation
+  - [ ] Backup Strategy:
+    - [ ] Database backups (automated daily)
+    - [ ] File storage backups
+    - [ ] Backup restoration procedures
+
+### 7. Documentation [ ]
+
+- [ ] API Documentation:
+  - [ ] API route documentation
+  - [ ] Database schema documentation
+  - [ ] Authentication flow documentation
+- [ ] User Guide:
+  - [ ] User manual for customers
+  - [ ] FAQ section
+  - [ ] Troubleshooting guide
+- [ ] Admin Documentation:
+  - [ ] Admin dashboard guide
+  - [ ] Product management guide
+  - [ ] Order management guide
+  - [ ] Analytics interpretation guide
+- [ ] Deployment Guide:
+  - [ ] Setup instructions
+  - [ ] Environment configuration
+  - [ ] Deployment steps
+  - [ ] Maintenance procedures
